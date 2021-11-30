@@ -2,9 +2,9 @@
   "name": "graphql-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devStart": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/odylic/graphql-app/issues"
   },
-  "homepage": "https://github.com/odylic/graphql-app#readme"
+  "homepage": "https://github.com/odylic/graphql-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.0.1",
+    "nodemon": "^2.0.15"
+  }
 }
