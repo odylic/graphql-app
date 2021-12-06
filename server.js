@@ -112,11 +112,11 @@ const RootQueryType = new GraphQLObjectType({
       resolve: () => authors,
     },
     // can find a single author with argument of id
-      // {
-      // 	author (id:2){
-      //     name
-      //   }
-      // }    
+    // {
+    // 	author (id:2){
+    //     name
+    //   }
+    // }
     author: {
       type: AuthorType,
       description: "A single author",
@@ -127,6 +127,32 @@ const RootQueryType = new GraphQLObjectType({
       },
       resolve: (parent, args) =>
         authors.find((author) => author.id === args.id),
+    },
+  }),
+});
+
+// mutations are how to CRUD app in graphql
+const RootMutationType = new GraphQLObjectType({
+  name: "Mutation",
+  description: "Root Mutation",
+  fields: () => ({
+    addBook: {
+      type: BookType,
+      description: "Add a book",
+      args: {
+        name: { type: GraphQLNonNull(GraphQLString) },
+        authorId: { type: GraphQLNonNull(GraphQLInt) },
+      },
+      resolve: (parent, args) => {
+        const book = {
+          id: books.length + 1,
+          name: args.name,
+          authorId: args.authorId,
+        };
+        // pushes the book to the books array
+        books.push(book);
+        return book;
+      },
     },
   }),
 });
