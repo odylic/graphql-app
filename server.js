@@ -154,12 +154,35 @@ const RootMutationType = new GraphQLObjectType({
         return book;
       },
     },
+// to mutate in graphiql
+// mutation{
+// 	addAuthor(name:"New Author") {
+//     id
+//     name
+//   }
+// }    
+    addAuthor: {
+      type: AuthorType,
+      description: "Add an Author",
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (parent, args) => {
+        const author = {
+          id: authors.length + 1,
+          name: args.name,
+        };
+        // pushes the author to the authors array
+        authors.push(author);
+        return author;
+      },
+    },
   }),
 });
 
 const schema = new GraphQLSchema({
   query: RootQueryType,
-  mutation: RootMutationType,
+  mutation: RootMutationType,   
 });
 
 app.use(
